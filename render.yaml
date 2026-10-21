@@ -1,0 +1,54 @@
+# Paid blueprint. Deploying this incurs hosting charges; see docs/DEPLOY.md.
+databases:
+  - name: opinionsim-db
+    databaseName: opinionsim
+    user: opinionsim
+    region: singapore
+    plan: 0.1c-256mb
+    diskSizeGB: 5
+    postgresMajorVersion: "17"
+    ipAllowList: []
+envVarGroups:
+  - name: opinionsim-secrets
+    envVars:
+      - key: ALLOW_PAID_API
+        value: "false"
+      - key: API_ALLOWED_HOSTS
+        value: dashscope.aliyuncs.com,api.deepseek.com,api.openai.com
+services:
+  - type: web
+    name: opinionsim-web
+    runtime: docker
+    region: singapore
+    plan: 0.5c-512mb
+    healthCheckPath: /_stcore/health
+    envVars:
+      - fromGroup: opinionsim-secrets
+      - key: APP_PASSWORD_HASH
+        sync: false
+      - key: FERNET_KEY
+        sync: false
+      - key: SERVICE_ROLE
+        value: web
+      - key: DATABASE_URL
+        fromDatabase:
+          name: opinionsim-db
+          property: connectionString
+  - type: worker
+    name: opinionsim-worker
+    runtime: docker
+    region: singapore
+    plan: 0.5c-512mb
+    envVars:
+      - fromGroup: opinionsim-secrets
+      - key: FERNET_KEY
+        fromService:
+          type: web
+          name: opinionsim-web
+          envVarKey: FERNET_KEY
+      - key: SERVICE_ROLE
+        value: worker
+      - key: DATABASE_URL
+        fromDatabase:
+          name: opinionsim-db
+          property: connectionString

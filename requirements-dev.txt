@@ -1,0 +1,5 @@
+-r requirements.txt
+pytest==9.1.1
+PyYAML==6.0.3
+# Optional embedded PostgreSQL for local tests (not used in production):
+pgserver==0.1.4

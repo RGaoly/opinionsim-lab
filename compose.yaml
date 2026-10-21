@@ -1,0 +1,46 @@
+name: opinionsim
+services:
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: opinionsim
+      POSTGRES_USER: opinionsim
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Generate .env first}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U opinionsim -d opinionsim"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    # Deliberately no host port: DB stays on private container network.
+  web:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      SERVICE_ROLE: web
+      PORT: "8501"
+    ports:
+      - "127.0.0.1:8501:8501"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  worker:
+    build: .
+    restart: unless-stopped
+    stop_grace_period: 120s
+    env_file: .env
+    environment:
+      SERVICE_ROLE: worker
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  pgdata:

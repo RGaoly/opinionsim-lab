@@ -1,0 +1,8 @@
+[
+  {"id":"q1","text":{"zh":"你对本地公共交通的总体评价如何？","en":"How do you rate local public transport overall?"},"choices":{"zh":{"A":"满意","B":"一般","C":"不满意"},"en":{"A":"Satisfied","B":"Neutral","C":"Dissatisfied"}}},
+  {"id":"q2","text":{"zh":"你是否支持增加公共图书馆投入？","en":"Do you support increasing investment in public libraries?"},"choices":{"zh":{"A":"支持","B":"中立","C":"不支持"},"en":{"A":"Support","B":"Neutral","C":"Oppose"}}},
+  {"id":"q3","text":{"zh":"你对社区绿地的数量满意吗？","en":"Are you satisfied with the amount of green space in your community?"},"choices":{"zh":{"A":"满意","B":"一般","C":"不满意"},"en":{"A":"Satisfied","B":"Neutral","C":"Dissatisfied"}}},
+  {"id":"q4","text":{"zh":"你认为远程办公的普及有益吗？","en":"Do you consider wider adoption of remote work beneficial?"},"choices":{"zh":{"A":"有益","B":"不确定","C":"无益"},"en":{"A":"Beneficial","B":"Unsure","C":"Not beneficial"}}},
+  {"id":"q5","text":{"zh":"你是否支持扩大社区体育设施？","en":"Do you support expanding community sports facilities?"},"choices":{"zh":{"A":"支持","B":"中立","C":"不支持"},"en":{"A":"Support","B":"Neutral","C":"Oppose"}}},
+  {"id":"q6","text":{"zh":"你对本地垃圾分类服务满意吗？","en":"Are you satisfied with local waste sorting services?"},"choices":{"zh":{"A":"满意","B":"一般","C":"不满意"},"en":{"A":"Satisfied","B":"Neutral","C":"Dissatisfied"}}}
+]

@@ -1,0 +1,8 @@
+{$DOMAIN} {
+    encode gzip
+    reverse_proxy web:8501
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy same-origin
+    }
+}

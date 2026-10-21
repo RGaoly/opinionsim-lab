@@ -1,0 +1,4 @@
+age,gender,education,region,q1,q2,q3,q4,q5,q6
+24,female,master,east,A,A,B,A,A,B
+37,male,bachelor,west,B,A,C,B,A,C
+62,female,secondary,central,C,B,A,C,B,A
